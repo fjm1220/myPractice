@@ -1,0 +1,101 @@
+//法一：直接利用Arrays.sort()进行排序，得到有小到大排序的数组
+import java.util.*;
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext())
+        {
+            String str = in.nextLine();
+            //空格分隔，得到字符串数组
+            String[] s = str.split(" ");
+            //将每个数字字符串转为整形,并放入数组中
+            int[] num = new int[s.length-1];
+            for(int i = 0;i < num.length;i++)
+            {
+                num[i] = Integer.parseInt(s[i]);
+            }
+            int k = Integer.parseInt(s[s.length-1]);
+            Arrays.sort(num);
+            for(int i = 0;i < k;i++)
+            {
+                if(i != k-1)
+                {
+                    System.out.print(num[i]+" ");
+                }
+                else
+                {
+                     System.out.print(num[i]);
+                }
+            }
+        }
+    }
+}
+
+
+//法二：利用快排思想，经过partitation,左边区的小于基准值，右边区的大于基准值，
+  //然后判断基准值的下标是否等于k,如果等于就进行排序再输出，否则调整low或者high
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext())
+        {
+        String str = in.nextLine();
+        String[] s = str.split(" ");
+        int[] num = new int[s.length-1];
+        for(int i = 0;i < s.length-1;i++)
+        {
+            num[i] = Integer.parseInt(s[i]);
+        }
+        int k = Integer.parseInt(s[s.length-1]);
+        int low = 0;
+        int high = num.length-1;
+        int part_index = partitation(num,low,high);
+        while(part_index != k)
+        {
+            if(part_index < k)
+            {
+                part_index = partitation(num,part_index+1,high);
+            }
+            else{
+                part_index = partitation(num,0,part_index-1);
+            }
+        }
+        Arrays.sort(num,0,k);
+        for(int i =0;i<k;i++)
+        {
+            System.out.print(i==k-1?num[i]:num[i] + " ");
+        }
+    }
+    }
+    public static int partitation(int[] num,int low,int high)
+    {
+        int i = low;
+        int j = high;
+        int  part = num[low];
+        while(i < j)
+        {
+            //一定要先进性
+             while(i < j && num[j] >= part)
+            {
+                j--;
+            }
+            while(i< j && num[i] <= part)
+            {
+                i++;
+            }
+            swap(num,i,j);
+        }
+        swap(num,low,i);
+        return i;
+    }
+    public static void swap(int[] num,int i,int j)
+    {
+        int temp = num[i];
+        num[i] = num[j];
+        num[j] = temp;
+    }
+}
