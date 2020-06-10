@@ -1,0 +1,52 @@
+import java.util.*;
+
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Partition {
+    public ListNode partition(ListNode pHead, int x) {
+        // write code here
+        ListNode small = new ListNode(0);
+        small.next = null;
+        ListNode sLast = small;
+        ListNode big = new ListNode(0);
+        big.next = null;
+       ListNode bLast = big;
+        ListNode cur = pHead;
+        ListNode nextcur = null;
+        while(cur != null)
+        {
+            nextcur = cur.next;
+            if(cur.val < x)
+            {
+                cur.next = sLast.next;
+                sLast.next = cur;
+                sLast = cur;
+                cur = nextcur;
+            }
+            else
+            {
+                cur.next = sLast.next;
+                bLast.next = cur;
+                bLast = cur;
+                cur = nextcur;
+            }
+        }
+         if(small.next != null && big.next != null)
+            {
+                sLast.next = big.next;
+                return small.next;
+            }
+            if(small.next == null)
+            {
+                return big.next;
+            }
+                return small.next;
+    }
+}
