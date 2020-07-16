@@ -1,0 +1,54 @@
+//链接：https://www.nowcoder.com/questionTerminal/4fc97c45a69241e992b3e705e817909c
+//来源：牛客网
+
+//定义\mathit S(n)S(n)，表示\mathit nn在十进制下的各位数字和。
+//现在给定一个\mathit xx,请你求出最小正整数\mathit nn，满足x \leq S(n)x≤S(n).
+
+//输入描述:
+//第一行数据组数T，对于每组数据，一行一个数字x
+
+//输出描述:
+//对于每组数据，一行一个整数表示最小的n。
+
+//示例1
+//输入
+//2
+//7
+//9 
+//输出
+//7
+//9
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int T = in.nextInt();
+        int[] arr = new int[T];
+        for(int i = 0;i < T;i++){
+            arr[i] = in.nextInt();
+        }
+        for(int j = 0;j < T;j++){
+            StringBuilder res = new StringBuilder();
+            if(arr[j] > 0 && arr[j] < 10){
+                res.append(arr[j]);
+                System.out.println(res);
+            }
+            else{
+                int n = arr[j]/9;
+                for(int k = 0;k < n;k++){
+                    res.append("9");
+                }
+                int high = arr[j]%9;
+                if(high != 0){
+                   res.append(high);
+                    res.reverse();
+                    System.out.println(res);
+                }
+                else{
+                    System.out.println(res);
+                }
+            }
+        }
+    }
+}
