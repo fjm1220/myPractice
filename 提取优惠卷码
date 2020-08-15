@@ -1,0 +1,41 @@
+链接：https://www.nowcoder.com/questionTerminal/113d0e19fa1841c2a8baf80585380734
+来源：牛客网
+
+方法一：遍历字符串
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String str = in.nextLine();
+            String res = "";
+            char[] ch = str.toCharArray();
+            for(int i = 0;i < ch.length;i++){
+                if((ch[i]>'A'&& ch[i]<'z')||(ch[i] == '[')||(ch[i]==']')||(ch[i]=='\\')||(ch[i]=='_')||(ch[i]=='\''))
+                {
+                   res+=ch[i];
+                }
+                else if(ch[i] == '$'){
+                    res+='^';
+                }
+            }
+            System.out.println(res);
+        }
+    }
+}
+
+方法二：利用字符春的replaceAll()函数
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String str = in.nextLine();
+            String res = "";
+            char[] ch = str.toCharArray();
+            str = str.replaceAll("[$]","^");
+            str = str.replaceAll("[^A-z]","");
+            System.out.println(str);
+        }
+    }
+}
